@@ -1,4 +1,4 @@
-# EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD
+# EXPERIMENT 02 INTEFACING A DIGITAL INPUT TO ARM DEVELOPMENT BOARD
 ## Aim: To Interface a Digital Input  (userpush button  ) to ARM   development board and write a  program to obtain  the data and flash the led  
 ## Components required: STM32 CUBE IDE, ARM IOT development board,  STM programmer tool.
 ## Theory 
@@ -51,13 +51,49 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 
 ## STM 32 CUBE PROGRAM :
+```
+#include "main.h"
+#include <stdbool.h>
 
+bool button_status;
 
+void push_button();
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 
+int main(void)
+{
+ HAL_Init();
+ SystemClock_Config();
+ MX_GPIO_Init();
+ while (1)
+   {
+	   push_button();
+  }
+}
+void push_button()
+	{
+	  button_status = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+
+	  if (button_status == 0)
+	  {
+	    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	  }
+	  else
+	  {
+	    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+	  }
+	}
+```
 ## Output  :
- 
+
+![WhatsApp Image 2025-09-25 at 10 27 42 AM](https://github.com/user-attachments/assets/da9c408b-ce74-4c35-b77d-929579b6fcdd)
+
+![WhatsApp Image 2025-09-25 at 10 27 41 AM](https://github.com/user-attachments/assets/b3163175-9ffc-4acd-9c7f-db33aa0d6bd8)
+
 ## layout of the circuit 
  
- 
+<img width="506" height="711" alt="image" src="https://github.com/user-attachments/assets/3b729434-0493-4222-b120-2286bc8667e1" />
+
 ## Result :
 Interfacing a digital Input (Pushbutton ) with ARM microcontroller based IOT development is executed and the results are verified.
